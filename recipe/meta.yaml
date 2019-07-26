@@ -20,12 +20,13 @@ requirements:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - cmake
+    - dlib  #[win]
   host:
     - python
     - pip
     - libblas
     - libcblas
-    - make
+    - makecm
     - numpy
     - scipy
   run:
