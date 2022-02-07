@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/geometryprocessing/libigl-python-bindings/archive/{{ version }}.tar.gz
-  sha256: 5e430f7c3b082e6d589e5416eb1a295fda21b38c17fe0e7625850f4564213ed4
+  sha256: 50c79856a2d05c00c4c13d89a6a6248744701553b1e228b97893538f2cbc6842
 
 build:
   number: 0
