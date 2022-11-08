@@ -11,19 +11,20 @@ source:
 
 build:
   number: 2
+  script:
+    - {{ PYTHON }} -m pip install . --no-deps -vv
 
 requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - cmake
-    - ninja
+    - make
   host:
     - python
     - pip
     - libblas
     - libcblas
-    - make
     - numpy
     - scipy
   run:
