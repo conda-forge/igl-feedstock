@@ -10,20 +10,21 @@ source:
   sha256: 6bf6483a493783aba029a2ff28fcca7cf11d9dbaa3fb2b8921683c8317757b47
 
 build:
-  number: 1
-  skip: true  # [py<31]
+  number: 2
+  script:
+    - {{ PYTHON }} -m pip install . --no-deps -vv
 
 requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - cmake
+    - make
   host:
     - python
     - pip
     - libblas
     - libcblas
-    - make
     - numpy
     - scipy
   run:
