@@ -18,7 +18,7 @@ build:
     # https://github.com/libigl/libigl-python-bindings/blob/2.4.1/setup.py#L57-L60
     # CPU_COUNT holds the number of CPUS we have on each CI.
     - export MAX_JOBS=${CPU_COUNT}                # [unix]
-    - set MAX_JOBS=%CPU_COUNT%                    # [win]
+    - set MAX_JOBS=1                              # [win]
     - set "CXX_FLAGS=%CXX_FLAGS% /bigobj /Zm400"  # [win]
     - {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
