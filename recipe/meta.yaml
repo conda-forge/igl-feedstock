@@ -19,7 +19,7 @@ build:
     # CPU_COUNT holds the number of CPUS we have on each CI.
     - export MAX_JOBS=${CPU_COUNT}                # [unix]
     - set MAX_JOBS=1                              # [win]
-    - set "CXX_FLAGS=%CXX_FLAGS% /bigobj /Zm400"  # [win]
+    - set "CXX_FLAGS=%CXX_FLAGS% /bigobj /Zm600"  # [win]
     - {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
 requirements:
