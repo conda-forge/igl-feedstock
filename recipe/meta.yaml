@@ -1,5 +1,5 @@
 {% set name = "igl" %}
-{% set version = "2.2.1" %}
+{% set version = "2.4.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,18 +7,28 @@ package:
 
 source:
   url: https://github.com/geometryprocessing/libigl-python-bindings/archive/{{ version }}.tar.gz
-  sha256: 6bf6483a493783aba029a2ff28fcca7cf11d9dbaa3fb2b8921683c8317757b47
+  sha256: 1663c777bafa078469fb2617b91e4b9a96d8b491d42db520d6622b0f459626ca
 
 build:
-  number: 2
+  number: 0
+  script_env:
+    # Azure pipeline failed with this error:
+    # ##[warning]Free memory is lower than 5%; Currently used: 95.21%
+    # So set number of jobs to 2 instead of default 8 (4 also didn't work):
+    # https://github.com/libigl/libigl-python-bindings/blob/2.4.1/setup.py#L57-L60
+    - MAX_JOBS=2
   script:
     - {{ PYTHON }} -m pip install . --no-deps -vv
+  # Temporarily removing windows builds as broken for 2.4.1
+  skip: true  # [win]
 
 requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - cmake
+    - {{ stdlib('c') }}
+    # https://github.com/libigl/libigl-python-bindings/blob/main/cmake/Warnings.cmake#L2
+    - cmake >=3.5,<4.0
     - make
   host:
     - python
@@ -26,7 +36,10 @@ requirements:
     - libblas
     - libcblas
     - numpy
+    - packaging
     - scipy
+    - setuptools >=42
+    - wheel
   run:
     - python
     - {{ pin_compatible('numpy') }}
