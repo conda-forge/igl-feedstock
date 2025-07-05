@@ -252,7 +252,9 @@ Feedstock Maintainers
 =====================
 
 * [@danielepanozzo](https://github.com/danielepanozzo/)
+* [@das-intensity](https://github.com/das-intensity/)
 * [@fwilliams](https://github.com/fwilliams/)
+* [@jeongseok-meta](https://github.com/jeongseok-meta/)
 * [@skoch9](https://github.com/skoch9/)
 * [@teseoch](https://github.com/teseoch/)
 
