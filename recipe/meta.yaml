@@ -10,7 +10,7 @@ source:
   sha256: 1dc525138d39b361573fba5f909f294ac524c728016df9c6d9d0a19cc40f0f88
 
 build:
-  number: 0
+  number: 1
   script_env:
     # Azure pipeline failed with this error:
     # ##[warning]Free memory is lower than 5%; Currently used: 95.21%
