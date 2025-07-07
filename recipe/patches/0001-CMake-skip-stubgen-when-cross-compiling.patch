@@ -1,0 +1,50 @@
+From 34f59ff22525e27933953b80d85eb43211bc8da3 Mon Sep 17 00:00:00 2001
+From: Jeongseok Lee <jeongseok@meta.com>
+Date: Sun, 6 Jul 2025 18:39:15 -0700
+Subject: [PATCH] CMake skip stubgen when cross compiling
+
+---
+ CMakeLists.txt | 27 +++++++++++++++++++--------
+ 1 file changed, 19 insertions(+), 8 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 265343b..f41b68b 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -149,14 +149,25 @@ function(pyigl_include prefix name)
+         RUNTIME_OUTPUT_DIRECTORY_RELEASE "${output_dir}"
+     )
+     set(PYI_OUTPUT "${output_dir}/${target_name}.pyi")
+-    nanobind_add_stub(
+-      ${target_name}_stub
+-      MODULE ${target_name}
+-      OUTPUT ${PYI_OUTPUT}
+-      PYTHON_PATH $<TARGET_FILE_DIR:${target_name}>
+-      DEPENDS ${target_name}
+-    )
+-    install(FILES "${PYI_OUTPUT}" DESTINATION "igl/${subpath}")
++  
++    # ------------------------------------------------------------------
++    # Stub generation requires importing the freshly built extension.
++    # During cross‑compilation the host interpreter architecture does not
++    # match the target architecture, so the import fails.  Skip stubs in
++    # that situation and create them only for native builds.
++    # ------------------------------------------------------------------
++    if (NOT CMAKE_CROSSCOMPILING)
++        nanobind_add_stub(
++            ${target_name}_stub
++            MODULE       ${target_name}
++            OUTPUT       ${PYI_OUTPUT}
++            PYTHON_PATH  $<TARGET_FILE_DIR:${target_name}>
++            DEPENDS      ${target_name})
++        install(FILES "${PYI_OUTPUT}" DESTINATION "igl/${subpath}")
++    else ()
++        message(STATUS "Skipping stub generation for ${target_name} "
++                       "because we are cross‑compiling.")
++    endif ()
+ 
+     # just to add dependency?
+     if("${name}" STREQUAL "core")
+-- 
+2.49.0.windows.1
+
