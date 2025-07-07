@@ -9,7 +9,7 @@ source:
   url: https://github.com/geometryprocessing/libigl-python-bindings/archive/{{ version }}.tar.gz
   sha256: 1dc525138d39b361573fba5f909f294ac524c728016df9c6d9d0a19cc40f0f88
   patches:
-    - patches/0001-Cmake-skip-stubgen-when-cross-compiling.patch  # [osx-arm64]
+    - patches/0001-Cmake-skip-stubgen-when-cross-compiling.patch  # [osx and not x86_64]
 
 build:
   number: 2
