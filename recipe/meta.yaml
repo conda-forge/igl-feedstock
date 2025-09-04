@@ -12,7 +12,7 @@ source:
     - patches/0001-Cmake-skip-stubgen-when-cross-compiling.patch  # [osx and not x86]
 
 build:
-  number: 2
+  number: 3
   script_env:
     # Azure pipeline failed with this error:
     # ##[warning]Free memory is lower than 5%; Currently used: 95.21%
