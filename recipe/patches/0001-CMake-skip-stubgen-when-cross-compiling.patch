@@ -23,10 +23,10 @@ index 265343b..f41b68b 100644
 -      DEPENDS ${target_name}
 -    )
 -    install(FILES "${PYI_OUTPUT}" DESTINATION "igl/${subpath}")
-+  
++
 +    # ------------------------------------------------------------------
 +    # Stub generation requires importing the freshly built extension.
-+    # During cross‑compilation the host interpreter architecture does not
++    # During cross-compilation the host interpreter architecture does not
 +    # match the target architecture, so the import fails.  Skip stubs in
 +    # that situation and create them only for native builds.
 +    # ------------------------------------------------------------------
@@ -40,11 +40,10 @@ index 265343b..f41b68b 100644
 +        install(FILES "${PYI_OUTPUT}" DESTINATION "igl/${subpath}")
 +    else ()
 +        message(STATUS "Skipping stub generation for ${target_name} "
-+                       "because we are cross‑compiling.")
++                       "because we are cross-compiling.")
 +    endif ()
  
      # just to add dependency?
      if("${name}" STREQUAL "core")
 -- 
 2.49.0.windows.1
-
