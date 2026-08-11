@@ -23,6 +23,11 @@ build:
       # eight jobs; four also exhausted available memory in prior builds.
       MAX_JOBS: 2
     content:
+      # On macOS, verifying a freshly extracted CMake binary can exceed
+      # scikit-build-core's five-second discovery timeout. Prime it first.
+      # https://github.com/scikit-build/scikit-build-core/issues/1530
+      - if: osx
+        then: cmake --version
       - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
 requirements:
