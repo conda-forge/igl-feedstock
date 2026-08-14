@@ -2,7 +2,7 @@ schema_version: 1
 
 context:
   version: "2.6.1"
-  build_number: 4
+  build_number: 5
 
 package:
   name: igl
@@ -28,6 +28,11 @@ build:
       # https://github.com/scikit-build/scikit-build-core/issues/1530
       - if: osx
         then: cmake --version
+      # Embree supports x86 and Arm, but not ppc64le, so omit the optional
+      # igl.embree module there. Remove once Embree adds PPC support:
+      # https://github.com/RenderKit/embree/blob/v4.4.0/README.md#supported-platforms
+      - if: target_platform == "linux-ppc64le"
+        then: export CMAKE_ARGS="${CMAKE_ARGS} -DLIBIGL_EMBREE=OFF"
       - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
 requirements:
