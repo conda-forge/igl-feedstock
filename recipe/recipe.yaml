@@ -1,8 +1,8 @@
 schema_version: 1
 
 context:
-  version: "2.6.1"
-  build_number: 5
+  version: "2.6.3"
+  build_number: 0
 
 package:
   name: igl
@@ -10,7 +10,7 @@ package:
 
 source:
   url: https://github.com/geometryprocessing/libigl-python-bindings/archive/${{ version }}.tar.gz
-  sha256: 1dc525138d39b361573fba5f909f294ac524c728016df9c6d9d0a19cc40f0f88
+  sha256: 238278cf2eeba9a70dfa458f563eb8bbbc97e6353c0e01d513213e44bb93f050
   patches:
     # Remove once upstream skips nanobind stub generation when cross-compiling,
     # or can generate stubs without importing the target extension.
@@ -40,11 +40,10 @@ build:
 requirements:
   build:
     - if: build_platform != target_platform
-      then: python
-    - if: build_platform != target_platform
-      then: cross-python_${{ target_platform }}
-    - if: build_platform != target_platform
-      then: numpy
+      then:
+        - python
+        - cross-python_${{ target_platform }}
+        - numpy
     - ${{ compiler('c') }}
     - ${{ compiler('cxx') }}
     - ${{ stdlib('c') }}
